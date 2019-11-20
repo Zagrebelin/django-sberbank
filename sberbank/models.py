@@ -1,7 +1,7 @@
 import uuid
 from enum import IntEnum
 
-from jsonfield import JSONField
+from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django.utils.translation import ugettext as _
 

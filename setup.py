@@ -20,5 +20,6 @@ setuptools.setup(
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: BSD License",
         "Operating System :: OS Independent",
-    ]
+    ],
+    include_package_data=True
 )

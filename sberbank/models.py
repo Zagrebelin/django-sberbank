@@ -3,13 +3,17 @@ from enum import IntEnum
 
 from django.contrib.postgres.fields import JSONField
 from django.db import models
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext_lazy as _
 
 
 class Choice(IntEnum):
     @classmethod
     def choices(cls):
-        return [(x.value, x.name) for x in cls]
+        return [(x.value, cls.get_display(x)) for x in cls]
+
+    @classmethod
+    def get_display(cls, x):
+        return x.name
 
 
 class Status(Choice):
@@ -21,6 +25,20 @@ class Status(Choice):
 
     def __str__(self):
         return str(self.value)
+
+    @classmethod
+    def get_display(cls, value):
+        if value == Status.CREATED:
+            return _('Created')
+        elif value == Status.PENDING:
+            return _('Pending')
+        elif value == Status.SUCCEEDED:
+            return _('Succeeded')
+        elif value == Status.FAILED:
+            return _('Failed')
+        elif value == Status.REFUNDED:
+            return _('Refunded')
+
 
 
 class Method(Choice):
